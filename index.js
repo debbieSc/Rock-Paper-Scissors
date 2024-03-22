@@ -51,7 +51,8 @@ function getPlayerChoice (){
             return choiceInLower;
         }
     }
-}
+}google-chrome
+
 
 
 
