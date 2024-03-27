@@ -1,5 +1,6 @@
 const choice = ['rock', 'paper', 'scissors'];
 let player;
+let computer;
 let playerCheck = document.querySelector(".playerCheck");
 let compCheck = document.querySelector(".compCheck");
 let gameCheck = document.querySelector(".gameCheck")
@@ -23,7 +24,7 @@ buttons.forEach(button => ("click", () => {
     getComputerChoice();
     playerCheck.textContent = `Your Choice: ${player}`;
     compCheck.textContent  = `Computer Choice: ${compChoice}`;
-    gameCheck = result();
+    gameCheck.textContent = winner();
     
 }))
 
@@ -44,3 +45,21 @@ function result (){
 
 
 
+function winner (playerSelection, computerSelection) {
+    if (playerSelection == computerSelection) {
+        return "Tie";
+    }
+
+    else if (
+        (playerSelection == "rock" && computerSelection == "scissors") ||
+        (playerSelection == "paper" && computerSelection == "rock") || 
+        (playerSelection == "scissors" && computerSelection == "paper") 
+        ){
+            return "You Win";
+        }
+    else {
+        return "CYou Lose";
+    }
+    
+
+}
