@@ -3,51 +3,58 @@ let player;
 let computer;
 let playerCheck = document.querySelector(".playerCheck");
 let compCheck = document.querySelector(".compCheck");
-let gameCheck = document.querySelector(".gameCheck")
+let gameCheck = document.querySelector(".gameCheck");
+let playerResult = document.querySelector(".playerScore");
+let computerResult = document.querySelector(".computerScore");
+let playerScore = 0;
+let computerScore = 0;
+let gameResult = document.querySelector(".gameResult");
 
+
+   
 
 function getComputerChoice() {
     const compChoice = choice[Math.floor(Math.random() * choice.length)];
+    
     return compChoice;
-}
-
-console.log(getComputerChoice());
-
-const buttons = document.querySelectorAll(".buttons");
-    console.log(buttons);
+    
+};
 
 
 
-buttons.forEach(button => ("click", () => {
+
+    const buttonChoice = document.querySelectorAll(".buttonChoice");
+
+
+    buttonChoice.forEach(button => button.addEventListener("click", () => {
 
     player = button.textContent;
-    getComputerChoice();
-    playerCheck.textContent = `Your Choice: ${player}`;
-    compCheck.textContent  = `Computer Choice: ${compChoice}`;
-    gameCheck.textContent = winner();
+    computer = getComputerChoice();
     
-}))
+    playerCheck.textContent = `Your Choice: ${player}`;
+    compCheck.textContent  = `Computer Choice: ${computer}`;
+    gameCheck.textContent = winner(player, computer);
 
-function result (){
-    if(player == compChoice){
-        return "Tie"
-    }
-    else if (compChoice == "rock"){
-        return (player == "paper") ? "You Win" : "You Lose"
-    }
-    else if (compChoice == "paper") {
-        return (player == "scissors") ? "You Win" : "You Lose"
-    }
-    else if (compChoice == "scissors") {
-        return (player == "rock") ? "You Win" : "You Lose"
-    }
-}
+    
+    
+    
+    
+}));
+
 
 
 
 function winner (playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "Tie";
+
+
+    while (playerScore <5 && computerScore <5 ){
+
+   if (playerSelection == computerSelection) {
+        playerScore +=1;
+        computerScore +=1;
+        playerResult.textContent = `Player Score: ${playerScore}`;
+        computerResult.textContent = `Computer Score: ${computerScore}`;
+        return "Result: It's a Tie";
     }
 
     else if (
@@ -55,11 +62,47 @@ function winner (playerSelection, computerSelection) {
         (playerSelection == "paper" && computerSelection == "rock") || 
         (playerSelection == "scissors" && computerSelection == "paper") 
         ){
-            return "You Win";
+            playerScore +=1
+            playerResult.textContent = `Player Score: ${playerScore}`;
+            computerResult.textContent = `Computer Score: ${computerScore}`;
+            return "Result: You Win";
         }
     else {
-        return "CYou Lose";
+        computerScore +=1;
+        playerResult.textContent = `Player Score: ${playerScore}`;
+        computerResult.textContent = `Computer Score: ${computerScore}`;
+        return "Result: You Lose";
     }
+
+    
+}
+
+
+
+if(playerScore == 5 && computerScore <=4){
+        
+        gameResult.textContent = `YOU WIN!`;
+}
+else if(computerScore == 5 && playerScore <=4){
+    
+    gameResult.textContent = `COMPUTER WINS`;
+}
+
+else{
+    gameResult.textContent = "IT'S A TIE";
+}
+   
+const newButton = document.createElement(`Button`);
+newButton.textContent = "Play Again";
+document.body.appendChild(newButton);
+
+newButton.addEventListener("click", () => {
+    window.location.reload();
+})
+}
+
+
+
+
     
 
-}
